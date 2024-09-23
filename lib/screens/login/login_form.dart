@@ -5,15 +5,15 @@ import 'package:flutter_node_store67/components/custom_textfield.dart';
 import 'package:flutter_node_store67/components/rouded_button.dart';
 import 'package:flutter_node_store67/components/social_media_options.dart';
 import 'package:flutter_node_store67/services/rest_api.dart';
-import 'package:flutter_node_store67/utils/app_router.dart';
+import 'package:flutter_node_store67/app_router.dart';
 import 'package:flutter_node_store67/utils/utility.dart';
 
 class LoginForm extends StatelessWidget {
   LoginForm({Key? key}) : super(key: key);
 
   final _formKeyLogin = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController(text: '12345@gmail.com');
+  final _passwordController = TextEditingController(text: '123456');
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +119,12 @@ class LoginForm extends StatelessWidget {
                             Utility.showAlertDialog(context, body["status"], '${body["message"]}');
 
                             // บันทึกข้อมูลลงในตัวแปร SharedPreferences
-                            // await Utility.setSharedPreference('loginStatus', true);
-                            // await Utility.setSharedPreference('token', body["token"]);
-                            // await Utility.setSharedPreference('user', body["user"]);
+                            await Utility.setSharedPreference('loginStatus', true);
+                            await Utility.setSharedPreference('token', body["token"]);
+                            await Utility.setSharedPreference('user', body["user"]);
 
                             // ส่งไปหน้า Dashboard
-                            // Navigator.pushReplacementNamed(context, AppRouter.dashboard);
+                            Navigator.pushReplacementNamed(context, AppRouter.dashboard);
 
                           }else{
                             // แจ้งเตือนว่าเข้าสู่ระบบไม่สำเร็จ
