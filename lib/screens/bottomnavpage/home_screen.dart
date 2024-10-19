@@ -4,6 +4,8 @@ import 'package:flutter_node_store67/models/product_model.dart';
 import 'package:flutter_node_store67/screens/products/components/product_item.dart';
 import 'package:flutter_node_store67/services/rest_api.dart';
 
+var refreshKey = GlobalKey<RefreshIndicatorState>();
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -39,25 +41,51 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       // body: _isGridView ? _gridView(): _listView(),
-      body: FutureBuilder(
-        future: CallAPI().getAllProducts(),
-        builder: (context, AsyncSnapshot snapshot) {
-          // กรณีที่มี error
-          if (snapshot.hasError) {
-            return const Center(
-              child: Center(child: Text('มีข้อผิดพลาด โปรดลองใหม่อีกครั้ง')),
-            );
-          } else if (snapshot.connectionState == ConnectionState.done) {
-            // กรณีที่โหลดข้อมูลสำเร็จ
-            List<ProductModel> products = snapshot.data;
-            return _isGridView ? _gridView(products) : _listView(products);
-          } else {
-            // กรณีที่กำลังโหลดข้อมูล
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      // body: FutureBuilder(
+      //   future: CallAPI().getAllProducts(),
+      //   builder: (context, AsyncSnapshot snapshot) {
+      //     // กรณีที่มี error
+      //     if (snapshot.hasError) {
+      //       return const Center(
+      //         child: Center(child: Text('มีข้อผิดพลาด โปรดลองใหม่อีกครั้ง')),
+      //       );
+      //     } else if (snapshot.connectionState == ConnectionState.done) {
+      //       // กรณีที่โหลดข้อมูลสำเร็จ
+      //       List<ProductModel> products = snapshot.data;
+      //       return _isGridView ? _gridView(products) : _listView(products);
+      //     } else {
+      //       // กรณีที่กำลังโหลดข้อมูล
+      //       return const Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     }
+      //   },
+      // ),
+    body: RefreshIndicator(
+        key: refreshKey,
+        onRefresh: () async {
+          setState(() {});
         },
+        child: FutureBuilder(
+          future: CallAPI().getAllProducts(),
+          builder: (context, AsyncSnapshot snapshot) {
+            // กรณีที่มี error
+            if (snapshot.hasError) {
+              return const Center(
+                child: Center(child: Text('มีข้อผิดพลาด โปรดลองใหม่อีกครั้ง')),
+              );
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              // กรณีที่โหลดข้อมูลสำเร็จ
+              List<ProductModel> products = snapshot.data;
+              return _isGridView ? _gridView(products) : _listView(products);
+            } else {
+              // กรณีที่กำลังโหลดข้อมูล
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -76,7 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
         return ProductItem(
           isGrid: true,
           product: products[index],
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, AppRouter.productDetail,
+                arguments: {'products': products[index].toJson()});
+          },
         );
       },
     );
@@ -94,7 +125,10 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 400,
             child: ProductItem(
               product: products[index],
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, AppRouter.productDetail,
+                    arguments: {'products': products[index].toJson()});
+              },
             ),
           ),
         );

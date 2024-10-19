@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_node_store67/models/product_model.dart';
 import 'package:flutter_node_store67/screens/bottomnavpage/home_screen.dart';
-import 'package:flutter_node_store67/screens/bottomnavpage/home_screen_old.dart';
+import 'package:flutter_node_store67/screens/dashboard/dashboard_screen.dart';
 import 'package:flutter_node_store67/screens/products/components/product_form.dart';
 import 'package:flutter_node_store67/services/rest_api.dart';
 
@@ -76,13 +76,14 @@ class _ProductUpdateState extends State<ProductUpdate> {
 
                 if(body['status'] == 'ok'){
 
-                  if(!mounted) return; // กรณีที่ออกจากหน้าจอแล้ว ไม่ต้องทำอะไรต่อ
-                  // ปิดหน้าจอและส่งค่ากลับไปยังหน้าก่อนหน้า
-                  Navigator.pop(context, true);
-                  Navigator.pop(context, true);
+                   if(!mounted) return; // กรณีที่ออกจากหน้าจอแล้ว ไม่ต้องทำอะไรต่อ
+                                    // ปิด dialog
+                                   Navigator.pop(context, true);
+                                    // กลับไปหน้าก่อนหน้า
+                                    Navigator.pop(context, true);
 
-                  // อัพเดทข้อมูลใหม่ล่าสุด
-                  refreshKey.currentState!.show();
+                                    // Refresh หน้าก่อนหน้า
+                                    refreshKey.currentState!.show();
                 }
 
               }

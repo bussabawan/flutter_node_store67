@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_node_store67/app_router.dart';
 import 'package:flutter_node_store67/components/image_not_found.dart';
 import 'package:flutter_node_store67/screens/bottomnavpage/home_screen.dart';
-import 'package:flutter_node_store67/screens/bottomnavpage/home_screen_old.dart';
 import 'package:flutter_node_store67/services/rest_api.dart';
 import 'package:flutter_node_store67/utils/constants.dart';
 import 'package:flutter_node_store67/utils/utility.dart';

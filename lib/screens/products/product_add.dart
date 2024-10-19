@@ -1,9 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_node_store67/models/product_model.dart';
-import 'package:flutter_node_store67/screens/bottomnavpage/home_screen_old.dart';
+import 'package:flutter_node_store67/screens/bottomnavpage/home_screen.dart';
 import 'package:flutter_node_store67/screens/products/components/product_form.dart';
 import 'package:flutter_node_store67/services/rest_api.dart';
 import 'package:flutter_node_store67/utils/utility.dart';
@@ -16,19 +18,21 @@ class ProductAdd extends StatefulWidget {
 }
 
 class _ProductAddState extends State<ProductAdd> {
-  // สร้าง GlobalKey สำหรับฟอร์ม
+
+    // สร้าง GlobalKey สำหรับฟอร์ม
   final _formKeyAddProduct = GlobalKey<FormState>();
 
   // สร้างตัวแปรสำหรับเก็บข้อมูล Product
   final _product = ProductModel(
-      name: '',
-      description: '',
-      barcode: '',
-      stock: 0,
-      price: 0,
-      categoryId: 1,
-      userId: 1,
-      statusId: 1);
+    name: '',
+    description: '',
+    barcode: '',
+    stock: 0,
+    price: 0,
+    categoryId: 1,
+    userId: 1,
+    statusId: 1
+  );
 
   // ไฟล์รูปภาพ
   File? _imageFile;
@@ -39,13 +43,14 @@ class _ProductAddState extends State<ProductAdd> {
       appBar: AppBar(
         title: const Text('เพิ่มสินค้าใหม่'),
         actions: [
+          // Save Button
           IconButton(
             onPressed: () async {
-             
-                if(_formKeyAddProduct.currentState!.validate()){
+              
+              if(_formKeyAddProduct.currentState!.validate()){
                 _formKeyAddProduct.currentState!.save();
-                Utility().logger.d(_product.toJson());
-                Utility().logger.d(_imageFile);
+                // Utility().logger.d(_product.toJson());
+                // Utility().logger.d(_imageFile);
 
                 // Call API Add Product
                 var response = await CallAPI().addProductAPI(
@@ -66,17 +71,20 @@ class _ProductAddState extends State<ProductAdd> {
                 }
 
               }
+
             },
             icon: const Icon(Icons.save),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ProductForm(_product,
-                callBackSetImage: _callBackSetImage,
-                formKey: _formKeyAddProduct)
+            ProductForm(
+              _product, 
+              callBackSetImage: _callBackSetImage, 
+              formKey: _formKeyAddProduct
+            )
           ],
         ),
       ),
@@ -89,4 +97,5 @@ class _ProductAddState extends State<ProductAdd> {
       _imageFile = imageFile;
     });
   }
+
 }
