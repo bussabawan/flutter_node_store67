@@ -1,16 +1,14 @@
 # flutter_node_store67
 
-A new Flutter project.
+POST
+![image](https://github.com/user-attachments/assets/cb0df286-94e4-4531-8892-9a4424e2ce94)
 
-## Getting Started
+GET
+![image](https://github.com/user-attachments/assets/a6e6fb22-4a1c-41c6-9a65-a7b37c919872)
 
-This project is a starting point for a Flutter application.
+PUT
+![image](https://github.com/user-attachments/assets/2e8b8288-71f2-4d63-a577-2f5d49444c81)
 
-A few resources to get you started if this is your first Flutter project:
+DELETE
+![image](https://github.com/user-attachments/assets/208eaff4-5afc-429b-be75-1c6fce5a1629)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
